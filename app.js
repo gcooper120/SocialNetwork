@@ -29,6 +29,7 @@ var models = require("./app/models");
 
 //Routes
 var authRoute = require('./app/routes/auth.js')(app, passport);
+var homeRoute = require('./app/routes/test.js')(app);
 
 //load Passport strategies
 require('./app/config/passport/passport.js')(passport, models.user);
@@ -46,10 +47,10 @@ models.sequelize.sync().then(function() {
 
 
 
-//Listening on port 3000
-app.listen(4000, function(err){
+//Listening on port 3001
+var listener = app.listen(3001, function(err){
 	if (!err) {
-		console.log("Starting server on port 4000");
+		console.log("Starting server on port " + listener.address().port);
 		console.log("This is the " + app.get('env') + " environment.");
 	}
 	else console.log(err)
