@@ -45,8 +45,61 @@ models.sequelize.sync().then(function() {
  
 });
 
+//Allowing CORS for development environment
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
 
 
+//Temporary for tutorial
+app.post('/api/test', (req, res) => {
+  console.log(req.body)
+  r = req.body.password + req.body.username
+  res.send(r)
+})
+app.get('/api/jokes/food', (req, res) => {
+  let foodJokes = [
+  {
+    id: 99991,
+    joke: "When Chuck Norris was a baby, he didn't suck his mother's breast. His mother served him whiskey, straight out of the bottle."
+  },
+  {
+    id: 99992,
+    joke: 'When Chuck Norris makes a burrito, its main ingredient is real toes.'
+  },
+  {
+    id: 99993,
+    joke: 'Chuck Norris eats steak for every single meal. Most times he forgets to kill the cow.'
+  },
+  {
+    id: 99994,
+    joke: "Chuck Norris doesn't believe in ravioli. He stuffs a live turtle with beef and smothers it in pig's blood."
+  },
+  {    id: 99995,
+    joke: "Chuck Norris recently had the idea to sell his urine as a canned beverage. We know this beverage as Red Bull."
+  },
+  {
+    id: 99996,
+    joke: 'When Chuck Norris goes to out to eat, he orders a whole chicken, but he only eats its soul.'
+  }
+  ];
+  res.json(foodJokes);
+})
 //Listening on port 3001
 var listener = app.listen(3001, function(err){
 	if (!err) {
