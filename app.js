@@ -5,8 +5,11 @@ var express 			= require("express"),
 		bodyParser 		= require("body-parser"),
 		mysql					= require("mysql2");
 		env						= require('dotenv').load(),
-		exphbs 				= require('express-handlebars');
+		exphbs 				= require('express-handlebars'),
+    AWS           = require('aws-sdk');
 
+AWS.config.region = 'us-east-2';
+s3 = new AWS.S3();
 //Handlebars config
 app.set('views', './app/views')
 app.engine('hbs', exphbs({
@@ -72,6 +75,10 @@ app.post('/api/test', (req, res) => {
   r = req.body.password + req.body.username
   res.send(r)
 })
+
+app.get('/api/profile', (req, res) => {
+  res.send("https://s3.us-east-2.amazonaws.com/socialnetworkimagesgcc/alex-holyoake-361916-unsplash.jpg");
+})
 app.get('/api/jokes/food', (req, res) => {
   let foodJokes = [
   {
@@ -104,7 +111,6 @@ app.get('/api/jokes/food', (req, res) => {
 var listener = app.listen(3001, function(err){
 	if (!err) {
 		console.log("Starting server on port " + listener.address().port);
-		console.log("This is the " + app.get('env') + " environment.");
 	}
 	else console.log(err)
 });

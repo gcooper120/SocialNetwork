@@ -48,6 +48,15 @@ module.exports = function(sequelize, Sequelize) {
         }
  
  
+    }, {
+        classMethods: {
+            associate: function(models) {
+                User.hasOne(models.Profile, {
+                    foreignKey: 'user_id',
+                    onDelete: 'CASCADE'
+                });
+            }
+        }
     });
  
     return User;
