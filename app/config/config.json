@@ -4,7 +4,7 @@
  
         "username": "root",
         "password": "password",
-        "database": "Social Network",
+        "database": "SocialNetwork",
         "host": "127.0.0.1",
         "dialect": "mysql",
         "operatorsAliases": false
