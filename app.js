@@ -55,11 +55,14 @@ app.use(function (req, res, next) {
 });
 
 
-//Testing functionality of sending data back to client.
-app.post('/api/test', (req, res) => {
+app.post('/api/login', (req, res) => {
   console.log(req.body)
-  r = req.body.password + req.body.username
-  res.send(r)
+  res.send("Reached Login Route");
+})
+
+app.post('/api/newUser', (req, res) => {
+  console.log(req.body)
+  res.send("We made it!")
 })
 
 app.get('/api/profile', (req, res) => {
