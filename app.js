@@ -65,8 +65,17 @@ app.post('/api/newUser', (req, res) => {
   res.send("We made it!")
 })
 
-app.get('/api/profile', (req, res) => {
-  res.send("https://s3.us-east-2.amazonaws.com/socialnetworkimagesgcc/alex-holyoake-361916-unsplash.jpg");
+app.get('/api/profileData', (req, res) => {
+  data = {
+    name: "Name Placeholder",
+    profPicUrl: "https://s3.us-east-2.amazonaws.com/socialnetworkimagesgcc/alex-holyoake-361916-unsplash.jpg",
+    aboutText: "Lorem ipsum",
+    city: "City placeholder",
+    state: "State placeholder",
+    country: "Country placeholder",
+    birthday: "Birthday placeholder"
+  }
+  res.send(data)
 })
 
 //Listening on port 3001

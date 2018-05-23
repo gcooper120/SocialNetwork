@@ -1,0 +1,17 @@
+insert into users(name, email, password, city, state, country, dateofBirth, about, profilePic, status, createdAt, updatedAt)
+VALUES('George Cooper', 'cooper.george120@gmail.com', 'password', 'Albuquerque',
+'NM', 'USA', '1997-01-20', 'This is my first test user',
+1, 'verified', current_timestamp(), current_timestamp());
+
+
+insert into users(name, email, password, city, state, country, dateofBirth, about, profilePic, status, createdAt, updatedAt)
+VALUES('Ted Johnson', 'gcc219@lehigh.edu', 'applesauce', 'New York',
+'NY', 'USA', '1984-5-10', 'This is my second test user',
+2, 'verified', current_timestamp(), current_timestamp());
+
+
+insert into photos
+values(1, 1, 'https://images.unsplash.com/photo-1454942901704-3c44c11b2ad1?ixlib=rb-0.3.5&s=c8096cb6fe87fc4d3ea1315b4abbadba&auto=format&fit=crop&w=500&q=60', current_timestamp(), current_timestamp())
+
+insert into photos
+values(2, 2, 'https://images.unsplash.com/photo-1458852535794-f5552aa49872?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c5c493f28d10dbd08143a13a3f845815&dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb', current_timestamp(), current_timestamp())

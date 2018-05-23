@@ -1,21 +1,27 @@
 module.exports = function(sequelize, Sequelize) {
  
-    var Profile = sequelize.define('profile', {
+    var Post = sequelize.define('post', {
+ 
+        post_id: {
+            type: Sequelize.INTEGER,
+            notEmpty: true,
+            primaryKey: true
+        },
  
         user_id: {
             type: Sequelize.INTEGER,
             notEmpty: true
         },
- 
-        imgUrl: {
-            type: Sequelize.STRING,
+
+        content: {
+            type: Sequelize.TEXT,
             notEmpty: true
         },
  
     }, {
     	classMethods: {
     		associate: function(models) {
-    			Profile.belongsTo(models.User, {
+    			Post.belongsTo(models.User, {
     				foreignKey: 'user_id',
     				onDelete: 'CASCADE'
     			});
@@ -23,6 +29,6 @@ module.exports = function(sequelize, Sequelize) {
     	}
     });
  
-    return Profile;
+    return Post;
  
 }

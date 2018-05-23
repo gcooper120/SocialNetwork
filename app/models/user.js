@@ -2,49 +2,60 @@ module.exports = function(sequelize, Sequelize) {
  
     var User = sequelize.define('user', {
  
-        id: {
+        user_id: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
         },
  
-        firstname: {
+        name: {
             type: Sequelize.STRING,
             notEmpty: true
-        },
- 
-        lastname: {
-            type: Sequelize.STRING,
-            notEmpty: true
-        },
- 
-        username: {
-            type: Sequelize.TEXT
-        },
- 
-        about: {
-            type: Sequelize.TEXT
         },
  
         email: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT,
             validate: {
                 isEmail: true
-            }
+            },
+            notEmpty: true
         },
  
         password: {
             type: Sequelize.STRING,
-            allowNull: false
+            notEmpty: true
         },
  
-        last_login: {
-            type: Sequelize.DATE
+        city: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        state: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        country: {
+            type: Sequelize.STRING,
+            allowNull: true
         },
  
+        dateofBirth: {
+            type: Sequelize.DATEONLY,
+            allowNull: true
+        },
+
+        about: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        
+        profilePic: {
+            type: Sequelize.INTEGER,
+            allowNull: true
+        }, 
         status: {
-            type: Sequelize.ENUM('active', 'inactive'),
-            defaultValue: 'active'
+            type: Sequelize.ENUM('verified', 'unverified'),
+            defaultValue: 'unverified'
         }
  
  
@@ -53,6 +64,12 @@ module.exports = function(sequelize, Sequelize) {
             associate: function(models) {
                 User.hasOne(models.Profile, {
                     foreignKey: 'user_id',
+                    onDelete: 'CASCADE'
+                });
+            },
+            associate: function(models) {
+                User.hasOne(models.Photo, {
+                    foreignKey: 'profilePic',
                     onDelete: 'CASCADE'
                 });
             }
