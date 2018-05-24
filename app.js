@@ -44,6 +44,7 @@ models.sequelize.sync().then(function() {
 
 //Routes
 require('./app/routes/login.js')(app,passport);
+require('./app/routes/profileData.js')(app, models.user, models.photo);
 
 //Allowing CORS for development environment
 app.use(function (req, res, next) {

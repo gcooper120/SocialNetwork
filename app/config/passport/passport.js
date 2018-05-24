@@ -39,7 +39,7 @@ module.exports = function(passport, user) {
 						}
 						if (newUser) {
 							//On success, creates a session.
-							return done(null, newUser)
+							return done(null, newUser.user_id)
 						}
 					});
 				} 
@@ -64,7 +64,7 @@ module.exports = function(passport, user) {
 			}).then(function(user) {
 				if (user && bCrypt.compareSync(password, user.password)){
 					//If the user exists and the password is correct, creates a session for that user.
-					return done(null, user);
+					return done(null, user.user_id);
 				} else {
 					return done(null, false);
 				}
