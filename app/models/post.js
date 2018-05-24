@@ -1,3 +1,7 @@
+//Model for the post table in the database
+//Post_ID is the primary key
+//User_ID is a foreign key referencing user. Indicates who owns a post
+//Content is the body of the post
 module.exports = function(sequelize, Sequelize) {
  
     var Post = sequelize.define('post', {
