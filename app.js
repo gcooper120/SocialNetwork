@@ -1,27 +1,34 @@
 var express 			= require("express"),
 		app 					= express(),
 		bodyParser 		= require("body-parser"),
-		mysql					= require("mysql2");
+		mysql					= require("mysql2"),
 		env						= require('dotenv').load(),
-		exphbs 				= require('express-handlebars'),
-    AWS           = require('aws-sdk');
+    AWS           = require('aws-sdk'),
+    passport      = require('passport'),
+    session       = require('express-session');
 
 AWS.config.region = 'us-east-2';
 s3 = new AWS.S3();
 
-//Handlebars config
-app.set('views', './app/views')
-app.engine('hbs', exphbs({
-    extname: '.hbs'
-}));
-app.set('view engine', '.hbs');
 
 //BodyParser Config
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//Passport Config
+app.use(session({
+  secret: 'Mouse trap hunter',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Models
 var models = require("./app/models");
+
+//load passport strategies
+require('./app/config/passport/passport.js')(passport, models.user);
 
 //Sync Database
 models.sequelize.sync().then(function() {
@@ -33,6 +40,10 @@ models.sequelize.sync().then(function() {
     console.log(err, "Something went wrong with the Database Update!")
  
 });
+
+
+//Routes
+require('./app/routes/login.js')(app,passport);
 
 //Allowing CORS for development environment
 app.use(function (req, res, next) {
@@ -54,29 +65,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-
-app.post('/api/login', (req, res) => {
-  console.log(req.body)
-  res.send("Reached Login Route");
-})
-
-app.post('/api/newUser', (req, res) => {
-  console.log(req.body)
-  res.send("We made it!")
-})
-
-app.get('/api/profileData', (req, res) => {
-  data = {
-    name: "Name Placeholder",
-    profPicUrl: "https://s3.us-east-2.amazonaws.com/socialnetworkimagesgcc/alex-holyoake-361916-unsplash.jpg",
-    aboutText: "Lorem ipsum",
-    city: "City placeholder",
-    state: "State placeholder",
-    country: "Country placeholder",
-    birthday: "Birthday placeholder"
-  }
-  res.send(data)
-})
 
 //Listening on port 3001
 var listener = app.listen(3001, function(err){
