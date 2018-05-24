@@ -8,7 +8,8 @@ var config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 var db = {};
  
- 
+//This block of code loops through all of the files in this directory, ignoring files that start with "." and this one
+//Then for each file, it connects the model to the relevant table in the database, creating it if necessary
 fs
     .readdirSync(__dirname)
     .filter(function(file) {

@@ -1,3 +1,6 @@
+//Model for the user table
+//User_ID is the primary key
+//Each user has one profile pic, so that is a foreign key to something in the photo table
 module.exports = function(sequelize, Sequelize) {
  
     var User = sequelize.define('user', {
@@ -61,12 +64,6 @@ module.exports = function(sequelize, Sequelize) {
  
     }, {
         classMethods: {
-            associate: function(models) {
-                User.hasOne(models.Profile, {
-                    foreignKey: 'user_id',
-                    onDelete: 'CASCADE'
-                });
-            },
             associate: function(models) {
                 User.hasOne(models.Photo, {
                     foreignKey: 'profilePic',

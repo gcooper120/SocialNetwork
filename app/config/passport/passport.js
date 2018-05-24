@@ -15,7 +15,7 @@ module.exports = function(passport, user) {
 			var generateHash = function(password) {
 				return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
 			};
-
+			//	Looks for a user in the database with the given email.
 			User.findOne({
 				where: {
 					email: email
@@ -26,6 +26,7 @@ module.exports = function(passport, user) {
 						message: 'That email is already taken'
 					});
 				} else {
+					//	If there is no user, generates the hash based on input password, packages as JSON and creates a new element in the database
 					var userPassword = generateHash(password);
 					var data = {
 						name: req.body.name,
@@ -37,6 +38,7 @@ module.exports = function(passport, user) {
 							return done(null, false)
 						}
 						if (newUser) {
+							//On success, creates a session.
 							return done(null, newUser)
 						}
 					});
@@ -44,7 +46,7 @@ module.exports = function(passport, user) {
 			});
 		}
 	));
- 	
+ 	//	Passport used for login in with an already existing account
  	passport.use('local-signin', new LocalStrategy(
 		{
 			usernameField: 'email',
@@ -61,6 +63,7 @@ module.exports = function(passport, user) {
 				}
 			}).then(function(user) {
 				if (user && bCrypt.compareSync(password, user.password)){
+					//If the user exists and the password is correct, creates a session for that user.
 					return done(null, user);
 				} else {
 					return done(null, false);
@@ -69,10 +72,12 @@ module.exports = function(passport, user) {
 		}
  	));
 
+	//	Serializes user
 	passport.serializeUser(function(user, done) {
   	done(null, user);
 	});
-
+	
+	//	Deserializes user
 	passport.deserializeUser(function(user, done) {
   	done(null, user);
 	});
