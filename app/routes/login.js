@@ -13,7 +13,7 @@ app.get('/api/isAuth', function (req, res, next) {
     if (req.isAuthenticated()) {
         return res.status(200).send('Connected');
     } else {
-        return res.status(401).send('Not connected');
+        return res.status(200).send('Not connected');
     }
 });
 
