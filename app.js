@@ -1,11 +1,11 @@
-var express 			= require("express"),
-		app 					= express(),
-		bodyParser 		= require("body-parser"),
-		mysql					= require("mysql2"),
-		env						= require('dotenv').load(),
-    AWS           = require('aws-sdk'),
-    passport      = require('passport'),
-    session       = require('express-session');
+var express 	      = require("express"),
+		app	     	  = express(),
+		bodyParser 	  = require("body-parser"),
+		mysql		  = require("mysql2"),
+		env			  = require('dotenv').load(),
+        AWS           = require('aws-sdk'),
+        passport      = require('passport'),
+        session       = require('express-session');
 
 AWS.config.region = 'us-east-2';
 s3 = new AWS.S3();
