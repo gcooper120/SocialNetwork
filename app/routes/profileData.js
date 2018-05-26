@@ -3,8 +3,8 @@
 module.exports = function(app, user, photo) {
   var User = user;
   var Photo = photo;
+
   app.get('/api/profileData', (req, res) => {
-    console.log(req.user);
     User.findOne({
           where: {
             user_id: req.user
@@ -30,10 +30,10 @@ module.exports = function(app, user, photo) {
             data.country = "NA";
           }
           if (user.dateofBirth) {
-            data.dateofBirth = user.dateofBirth;
+            data.birthday = user.dateofBirth;
           } else {
             var d = new Date();
-            data.dateOfBirth = d.toJSON();
+            data.birthday = d.toJSON();
           }
           Photo.findOne({
             where: {
@@ -45,5 +45,12 @@ module.exports = function(app, user, photo) {
           });
         });
   })
+
+  app.post('/api/changeName', (req, res) => {
+  console.log(req);
+  console.log("From server");
+  res.send("Response");
+});
+
 
 }
